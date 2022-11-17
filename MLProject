@@ -1,0 +1,11 @@
+name: vehicle-color-classification
+
+python_env: env.yaml
+
+entry_points:
+  setup:
+    command: "python3 download.py --download-data True"
+  main:
+    parameters:
+      config: {type str, default: config.yaml}
+    command: "python3 /app/train.py --config {config}"
