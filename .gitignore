@@ -1,3 +1,4 @@
 /data/color
 /mlruns
 /output
+__pycache__

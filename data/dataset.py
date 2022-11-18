@@ -3,6 +3,7 @@ import torchvision.transforms as T
 from torch.utils.data import Dataset, DataLoader
 from PIL import Image
 from sklearn.model_selection import train_test_split
+from utils.lib import *
 
 
 class VehicleColorDataset(Dataset):
@@ -21,19 +22,6 @@ class VehicleColorDataset(Dataset):
 
     def __len__(self):
         return self.data_len
-
-
-labels = ['black', 'blue', 'cyan', 'gray', 'green', 'red', 'white', 'yellow']
-
-
-def decode_label(index):
-    return labels[index]
-
-
-def encode_label_from_path(path):
-    for index, value in enumerate(labels):
-        if value in path:
-            return index
 
 
 def get_loaders(batch_size: int, test_batch_size: int, dataset_path: str):
@@ -55,5 +43,5 @@ def get_loaders(batch_size: int, test_batch_size: int, dataset_path: str):
         train_dataset, batch_size=batch_size, shuffle=True)
     test_loader = DataLoader(
         test_dataset, batch_size=test_batch_size,  shuffle=False)
-    
+
     return train_loader, test_loader
