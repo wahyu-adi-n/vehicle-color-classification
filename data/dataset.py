@@ -1,9 +1,9 @@
-import glob
-import torchvision.transforms as T
 from torch.utils.data import Dataset, DataLoader
 from PIL import Image
 from sklearn.model_selection import train_test_split
 from utils.lib import *
+import glob
+import torchvision.transforms as T
 
 
 class VehicleColorDataset(Dataset):
@@ -24,15 +24,18 @@ class VehicleColorDataset(Dataset):
         return self.data_len
 
 
-def get_loaders(batch_size: int, test_batch_size: int, dataset_path: str):
+def data_loaders(batch_size: int,
+                 test_batch_size: int,
+                 dataset_path: str,
+                 num_workers: int):
     image_list = glob.glob(dataset_path + '**/*')
     class_list = [encode_label_from_path(item) for item in image_list]
     x_train, x_test, y_train, y_test = train_test_split(
-        image_list, class_list, train_size=0.5, shuffle=True, random_state=42)
+        image_list, class_list, test_size=0.2, shuffle=True, random_state=42)
 
     transforms = T.Compose([
-        T.Resize(224),
-        T.CenterCrop(224),
+        T.Resize(size=(256, 256)),
+        T.CenterCrop(size=(224, 224)),
         T.ToTensor()]
     )
 
@@ -40,8 +43,15 @@ def get_loaders(batch_size: int, test_batch_size: int, dataset_path: str):
     test_dataset = VehicleColorDataset(x_test, y_test, transforms)
 
     train_loader = DataLoader(
-        train_dataset, batch_size=batch_size, shuffle=True)
+        train_dataset,
+        batch_size=batch_size,
+        shuffle=True,
+        num_workers=num_workers)
+
     test_loader = DataLoader(
-        test_dataset, batch_size=test_batch_size,  shuffle=False)
+        test_dataset,
+        batch_size=test_batch_size,
+        shuffle=False,
+        num_workers=num_workers)
 
     return train_loader, test_loader

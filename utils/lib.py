@@ -1,5 +1,5 @@
 # Setting Up the Labels
-labels = ['black', 'blue', 'cyan', 'gray', 'green', 'red', 'white', 'yellow']
+labels = ['black', 'blue', 'gray',  'red', 'white']
 
 
 def decode_label(index):
