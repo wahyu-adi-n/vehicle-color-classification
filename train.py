@@ -31,10 +31,6 @@ def main(args):
         "test_batch_size": test_batch_size,
     }
     model = VehicleColorModel()
-    # print(model)
-    # x = torch.randn(48, 3, 224, 224)
-    # out = model(x)
-    # print(out)
     train_model(model, train_loader, test_loader,
                 f"{wd}/{experiment_name}", device, experiment_name,
                 lr=lr, epochs=epochs, params_dict=params)

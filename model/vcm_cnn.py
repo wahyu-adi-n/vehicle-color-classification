@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 
+
 class VehicleColorModel(nn.Module):
     def __init__(self):
         super(VehicleColorModel, self).__init__()
@@ -199,3 +200,7 @@ class VehicleColorModel(nn.Module):
         #output = F.softmax(output)
 
         return output
+
+
+if __name__ == "__main__":
+    print(VehicleColorModel())
