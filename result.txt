@@ -1,0 +1,55 @@
+#BLACK
+Time inference all image is 198.9359s
+Num of image in ./data/color/black directory is 3402
+Num of image correct while inference is 3110 out of 3402
+Accuracy for this class is 91.42%
+Other class predicted is {'yellow', 'red', 'gray', 'blue', 'white'}
+
+#BLUE   
+Time inference all image is 79.2946s
+Num of image in ./data/color/blue directory is 1086
+Num of image correct while inference is 277 out of 1086
+Accuracy for this class is 25.51%
+Other class predicted is {'red', 'white', 'green', 'yellow', 'gray', 'black'}
+
+#CYAN   
+Time inference all image is 19.4127s
+Num of image in ./data/color/cyan directory is 281
+Num of image correct while inference is 2 out of 281
+Accuracy for this class is 0.71%
+Other class predicted is {'white', 'blue', 'green', 'red', 'yellow', 'black', 'gray'}
+
+#GRAY 
+Time inference all image is 172.7462s
+Num of image in ./data/color/gray directory is 3046
+Num of image correct while inference is 2253 out of 3046
+Accuracy for this class is 73.97%
+Other class predicted is {'blue', 'yellow', 'red', 'green', 'white', 'black'}
+
+#GREEN 
+Time inference all image is 28.7788s
+Num of image in ./data/color/green directory is 482
+Num of image correct while inference is 9 out of 482
+Accuracy for this class is 1.87%
+Other class predicted is {'white', 'black', 'blue', 'red', 'yellow', 'gray'}
+
+#RED 
+Time inference all image is 115.6050s
+Num of image in ./data/color/red directory is 1941
+Num of image correct while inference is 684 out of 1941
+Accuracy for this class is 35.24%
+Other class predicted is {'gray', 'white', 'black', 'blue', 'yellow', 'green', 'cyan'}
+
+#WHITE 
+Time inference all image is 273.5251s
+Num of image in ./data/color/white directory is 4742
+Num of image correct while inference is 3921 out of 4742
+Accuracy for this class is 82.69%
+Other class predicted is {'red', 'blue', 'yellow', 'black', 'gray', 'green'}
+
+#YELLOW
+Time inference all image is 36.8871s
+Num of image in ./data/color/yellow directory is 581
+Num of image correct while inference is 281 out of 581
+Accuracy for this class is 48.36%
+Other class predicted is {'green', 'blue', 'red', 'gray', 'white', 'black'}
