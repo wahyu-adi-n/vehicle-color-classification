@@ -74,11 +74,13 @@ def train_model(model,
     with mlflow.start_run(experiment_id=experiment_id):
         start_time = timer()
         t0 = time.time()
+        best = 0
         for epoch in range(1, params['epochs'] + 1):
             train_loss, train_accuracy = train_one_epoch(
                 model, optimizer, train_loader)
             test_loss, test_accuracy = eval_one_epoch(
                 model, test_loader)
+                 
             mlflow.log_metrics(
                 {
                     "train_loss": train_loss,
@@ -91,7 +93,7 @@ def train_model(model,
 
             if verbose:
                 print(
-                    f"Epoch {epoch}/{params['epochs']}\n loss: {train_loss:.4f} - accuracy: {train_accuracy:.4f} - val_loss: {test_loss} - val_accuracy: {test_accuracy:.4f} - {time.time() - t0:.0f}s")
+                    f"Epoch {epoch}/{params['epochs']}\n loss: {train_loss:.4f} - accuracy: {train_accuracy:.4f} - val_loss: {test_loss} - val_accuracy: {test_accuracy:.4f} - time: {time.time() - t0:.0f}s")
 
             if epoch == 1:
                 shutil.rmtree(model_dir, ignore_errors=True)
@@ -103,7 +105,7 @@ def train_model(model,
             with open(f"{model_dir}/train_log.csv", 'a', newline='\n', encoding='utf-8') as f:
                 f.write(
                     f'{train_loss:.4f}, {train_accuracy:.4f}, {test_loss:.4f}, {test_accuracy:.4f}\n')
-        torch.save(model.state_dict(), f"{params['model']}.pt")
+            torch.save(model.state_dict(),f"{model_dir}/weights_epoch_{epoch}.pt")
         end_time = timer()
         mp.log_model(model, "Model")
         mlflow.log_metrics({

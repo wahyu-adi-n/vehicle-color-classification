@@ -46,7 +46,8 @@ def main(args):
                     "learning_rate": lr,
                     "momentum": momentum,
                     "num_workers": num_workers,
-                    "device": device
+                    "device": device,
+                    "model": args.model
                 })
 
 
