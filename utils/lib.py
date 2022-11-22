@@ -1,12 +1,11 @@
 # Setting Up the Labels
-labels = ['black', 'blue', 'gray',  'red', 'white']
-
+from config import *
 
 def decode_label(index):
-    return labels[index]
+    return LABELS[index]
 
 
 def encode_label_from_path(path):
-    for index, value in enumerate(labels):
+    for index, value in enumerate(LABELS):
         if value in path:
             return index

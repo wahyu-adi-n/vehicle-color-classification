@@ -3,15 +3,13 @@ from data import dataset
 from utils.engine import train_model
 from model.vcm import models
 from torch.optim import *
-
+from config import *
 import argparse
 import torch
 import os
 
 
 def main(args):
-    device = torch.device(
-        "cuda") if torch.cuda.is_available() else torch.device("cpu")
     os.makedirs("output", exist_ok=True)
     wd = Path(os.getcwd()) / "output"
 
@@ -32,8 +30,7 @@ def main(args):
                                                      dataset_path="data/color/",
                                                      num_workers=num_workers, test_size=test_size)
 
-    print(
-        f"================================ Training {experiment_name} ================================")
+    print("Training process is started!")
 
     print(model)
 
@@ -46,7 +43,7 @@ def main(args):
                     "learning_rate": lr,
                     "momentum": momentum,
                     "num_workers": num_workers,
-                    "device": device,
+                    "device": DEVICE,
                     "model": args.model
                 })
 

@@ -2,6 +2,7 @@ from torch.utils.data import Dataset, DataLoader
 from PIL import Image
 from sklearn.model_selection import train_test_split
 from utils.lib import *
+from config import *
 import glob
 import torchvision.transforms as T
 
@@ -31,18 +32,11 @@ def data_loaders(batch_size: int,
                  test_size: float):
     image_list = glob.glob(dataset_path + '**/*')
     class_list = [encode_label_from_path(item) for item in image_list]
-    print(len(class_list))
     x_train, x_test, y_train, y_test = train_test_split(
         image_list, class_list, test_size=test_size, shuffle=True, random_state=42)
 
-    transforms = T.Compose([
-        T.Resize(size=(256, 256)),
-        T.CenterCrop(size=(224, 224)),
-        T.ToTensor()]
-    )
-
-    train_dataset = VehicleColorDataset(x_train, y_train, transforms)
-    test_dataset = VehicleColorDataset(x_test, y_test, transforms)
+    train_dataset = VehicleColorDataset(x_train, y_train, TRANSFORMS)
+    test_dataset = VehicleColorDataset(x_test, y_test, TRANSFORMS)
 
     train_loader = DataLoader(
         train_dataset,

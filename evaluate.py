@@ -1,21 +1,19 @@
 from model.vcm import models
 from data import dataset
-from torchvision import transforms as T
+from config import *
 from utils.lib import *
-from sklearn.metrics import classification_report
+from sklearn.metrics import *
 import torch
 import argparse
-
-
-BASE_DIR = "output/models/"
-DEVICE = torch.device(
-    "cuda") if torch.cuda.is_available() else torch.device("cpu")
+import seaborn as sns
+import matplotlib.pyplot as plt
+import time
 
 
 def load_model(args):
     model = models(args)
     model.load_state_dict(torch.load(
-        BASE_DIR+'VCM_CNN_5/weights_epoch_50.pt', map_location=DEVICE))
+        MODEL_PATH, map_location=DEVICE))
     return model
 
 
@@ -46,6 +44,10 @@ def main(args):
     model = load_model(args.model)
     test_predict, true_label = eval_data_preparation(model, args.test_size)
     print(classification_report(true_label, test_predict))
+    cm = confusion_matrix(true_label, test_predict)
+    cmsns = sns.heatmap(cm, annot=True)
+    fig = cmsns.get_figure()
+    fig.savefig(f'{SAVE_CM_PATH}{time.strftime("%Y%m%d-%H%M%S")}')
 
 
 if __name__ == "__main__":
@@ -62,7 +64,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--test-size",
         type=float,
-        default=0.5,
+        default=0.2,
         metavar="TS",
         help="Test Size for training (default: 1e-4)"
     )
