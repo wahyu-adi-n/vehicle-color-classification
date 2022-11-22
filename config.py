@@ -2,7 +2,8 @@ import torch
 import torchvision.transforms as T
 import time
 
-IMAGE_PATH = './inference/test'
+IMAGE_PATH = "./inference/test/8.jpg"
+FOLDER_PATH = './inference/test'
 MODEL_PATH = './output/models/VCM_CNN_5/weights_epoch_50.pt'
 DEVICE = torch.device(
     "cuda") if torch.cuda.is_available() else torch.device("cpu")
