@@ -27,11 +27,13 @@ class VehicleColorDataset(Dataset):
 def data_loaders(batch_size: int,
                  test_batch_size: int,
                  dataset_path: str,
-                 num_workers: int):
+                 num_workers: int,
+                 test_size: float):
     image_list = glob.glob(dataset_path + '**/*')
     class_list = [encode_label_from_path(item) for item in image_list]
+    print(len(class_list))
     x_train, x_test, y_train, y_test = train_test_split(
-        image_list, class_list, test_size=0.2, shuffle=True, random_state=42)
+        image_list, class_list, test_size=test_size, shuffle=True, random_state=42)
 
     transforms = T.Compose([
         T.Resize(size=(256, 256)),

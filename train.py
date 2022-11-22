@@ -20,17 +20,17 @@ def main(args):
 
     batch_size = args.batch_size
     test_batch_size = args.test_batch_size
+    test_size = args.test_size
     epochs = args.epochs
     momentum = args.momentum
     lr = args.lr
     num_workers = args.num_workers
     experiment_name = "VCM"
 
-    train_loader, test_loader = \
-        dataset.data_loaders(batch_size=batch_size,
-                             test_batch_size=test_batch_size,
-                             dataset_path="data/color/",
-                             num_workers=num_workers)
+    train_loader, test_loader = dataset.data_loaders(batch_size=batch_size,
+                                                     test_batch_size=test_batch_size,
+                                                     dataset_path="data/color/",
+                                                     num_workers=num_workers, test_size=test_size)
 
     print(
         f"================================ Training {experiment_name} ================================")
@@ -109,6 +109,14 @@ if __name__ == "__main__":
         default=1e-4,
         metavar="LR",
         help="Learning rate for training (default: 1e-4)"
+    )
+
+    parser.add_argument(
+        "--test-size",
+        type=float,
+        default=0.2,
+        metavar="TS",
+        help="Test Size for training (default: 1e-4)"
     )
 
     args = parser.parse_args()
