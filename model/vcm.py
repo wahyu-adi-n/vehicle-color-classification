@@ -5,7 +5,7 @@ from torchvision.models import resnet50, efficientnet_b0, efficientnet_b1
 
 def models(model_name: str):
     if model_name == 'resnet50':
-        model = resnet50(pretrained=True)
+        model = resnet50(weights='DEFAULT')
         num_features = model.fc.in_features
         model.fc = nn.Linear(num_features, 5)
     elif model_name == 'efficientnet_b0':
@@ -18,18 +18,19 @@ def models(model_name: str):
         model = VehicleColorModel()
     return model
 
+
 class EfficientNet(torch.nn.Module):
     def __init__(self, pretrained):
         super(EfficientNet, self).__init__()
         self.pretrained = pretrained
         self.classifier_layer = torch.nn.Sequential(
-            torch.nn.Linear(1280 , 512),
-            torch.nn.BatchNorm1d(512),  
+            torch.nn.Linear(1280, 512),
+            torch.nn.BatchNorm1d(512),
             torch.nn.Dropout(0.7),
-            torch.nn.Linear(512 , 256),
+            torch.nn.Linear(512, 256),
             torch.nn.Dropout(0.6),
-            torch.nn.Linear(256 , 5))
-        
+            torch.nn.Linear(256, 5))
+
     def forward(self, x):
         x = self.pretrained.features(x)
         x = self.pretrained.avgpool(x)

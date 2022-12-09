@@ -6,19 +6,18 @@ from sklearn.metrics import *
 import torch
 import argparse
 import seaborn as sns
-import matplotlib.pyplot as plt
 import time
 
 
 def load_model(args):
     model = models(args)
     model.load_state_dict(torch.load(
-        MODEL_PATH, map_location=DEVICE))
+        MODEL_PATH, map_location=DEVICE), strict=False)
+    model.eval()
     return model
 
 
 def predict(model, image):
-    model.eval()
     with torch.no_grad():
         pred = model.forward(image).argmax(dim=1)
     return pred
@@ -43,6 +42,8 @@ def eval_data_preparation(model, args):
 def main(args):
     model = load_model(args.model)
     test_predict, true_label = eval_data_preparation(model, args.test_size)
+    print(test_predict)
+    print(true_label)
     print(classification_report(true_label, test_predict))
     cm = confusion_matrix(true_label, test_predict)
     cmsns = sns.heatmap(cm, annot=True)

@@ -1,6 +1,7 @@
 # Setting Up the Labels
 from config import *
 
+
 def decode_label(index):
     return LABELS[index]
 

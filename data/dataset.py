@@ -6,7 +6,6 @@ from config import *
 import glob
 import torchvision.transforms as T
 
-
 class VehicleColorDataset(Dataset):
     def __init__(self, image_list, class_list, transforms=None):
         self.transform = transforms
@@ -34,6 +33,8 @@ def data_loaders(batch_size: int,
     class_list = [encode_label_from_path(item) for item in image_list]
     x_train, x_test, y_train, y_test = train_test_split(
         image_list, class_list, test_size=test_size, shuffle=True, random_state=42)
+    print(len(x_train))
+    print(len(x_test))
 
     train_dataset = VehicleColorDataset(x_train, y_train, TRANSFORMS)
     test_dataset = VehicleColorDataset(x_test, y_test, TRANSFORMS)
